@@ -5,11 +5,14 @@
   "main": "app.js",
   "scripts": {
     "test": "export NODE_ENV=test && mocha spec/server-spec.js --timeout 2000 --exit && unset NODE_ENV",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "report": "export NODE_ENV=test && mocha spec/server-spec.js --timeout 2000 --exit  --reporter @mochajs/json-file-reporter && unset NODE_ENV",
+    "submit": "codestates-submission"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@codestates-cc/submission-npm": "^1.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -19,6 +22,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@mochajs/json-file-reporter": "^1.2.1",
     "axios": "^0.21.1",
     "chai": "^4.3.0",
     "fs": "0.0.1-security",
