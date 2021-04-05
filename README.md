@@ -1,1 +1,1 @@
-# im-sprint-cmarket-database
+# cmarket-database

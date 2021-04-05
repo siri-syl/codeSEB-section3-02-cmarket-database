@@ -1,5 +1,5 @@
 {
-  "name": "shoppinglist",
+  "name": "cmarket-database-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
