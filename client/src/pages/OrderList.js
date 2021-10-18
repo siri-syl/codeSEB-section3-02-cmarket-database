@@ -8,6 +8,7 @@ export default function OrderList () {
   const state = useSelector((state) => state.itemReducer);
   const dispatch = useDispatch();
   const { orders } = state;
+  console.log(orders)
 
   useEffect(() => {
     dispatch(

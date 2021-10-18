@@ -3,34 +3,38 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { fetchData, notify, removeFromCart, setOrders } from '../actions';
 
-export default function OrderSummary ({ totalQty, total, cartItems }) {
+export default function OrderSummary({ totalQty, total, cartItems }) {
   const userId = 1;
   const dispatch = useDispatch();
   const history = useHistory();
   const handleOrder = (orders, totalPrice) => {
-    const payload = JSON.stringify({
-      orders,
-      totalPrice
-    });
+    if (totalPrice) {
+      const payload = JSON.stringify({
+        orders,
+        totalPrice,
+      });
 
-    return fetch(`http://localhost:4000/users/${userId}/orders/new`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: payload
-    })
-      .then(orders.forEach((el) => dispatch(removeFromCart(el.itemId))))
-      .then(dispatch(notify('주문이 완료되었습니다.')))
-      .then(
-        dispatch(
-          fetchData(`http://localhost:4000/users/${userId}/orders`, setOrders)
-        )
-      )
-      .then(() => {
-        history.push('/orderlist');
+      return fetch(`http://localhost:4000/users/${userId}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: payload,
       })
-      .catch((err) => console.log(err));
+        .then(orders.forEach((el) => dispatch(removeFromCart(el.itemId))))
+        .then(dispatch(notify('주문이 완료되었습니다.')))
+        .then(
+          dispatch(
+            fetchData(`http://localhost:4000/users/${userId}/orders`, setOrders)
+          )
+        )
+        .then(() => {
+          history.push('/orderlist');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      dispatch(notify('상품을 한 개 이상 선택해주세요.'));
+    }
   };
 
   return (
